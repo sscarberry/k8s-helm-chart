@@ -1,6 +1,11 @@
-
+# End point for Redis.
+# This endpoint is only created if the user
+# is using an external Redis Service
 
 ---
+{{ if .Values.externalRedis }}
+# do nothing.
+{{ else }}
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -25,4 +30,4 @@ spec:
         name: {{ template "divvycloud.name" . }}-redis
         ports:
         - containerPort: 6379
-
+{{ end }}

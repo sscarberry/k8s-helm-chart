@@ -9,7 +9,7 @@ imageTag: 18
 # DATABASE CONFIG #
 
 # Uncomment this section if you want to use an exteranl database.
-# Please ensure that both divvy and divvykeys shecmas exist and 
+# Please ensure that both divvy and divvykeys shecmas exist and
 # that the user has permissions on both schemas
 
 useExternalDb: false
@@ -44,6 +44,13 @@ storageSize: 30Gi
 
 # END OF DATABASE CONFIG #
 
+# REDIS #
+
+useExternalRedis: false
+
+# redisHost: #IP Address here.
+
+# END REDIS CONFIG #
 
 ## INGRESS
 

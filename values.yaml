@@ -1,1 +1,8 @@
 ## Please add your configuration options below
+
+useExternalDb: true
+cloudSQLInstanceName: divvy-230118:us-east1:divvycloud-sql
+databaseUser: root
+databasePassword: pkE2oqurJhGcye6u
+useExternalRedis: true
+externalRedis: 10.0.0.3

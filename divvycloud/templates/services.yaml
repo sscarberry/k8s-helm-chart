@@ -45,7 +45,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
     app.kubernetes.io/name: {{ template "divvycloud.name" . }}
-  {{ if (.Values.autoIngress) and eq .Value.autoIngress true }} 
+  {{ if (.Values.autoIngress) and eq .Value.autoIngress true }}
     auto-ingress/enabled: 'enabled'
   {{ end }}
   {{ if .Values.internalLoadBalancer }}
@@ -53,7 +53,7 @@ metadata:
     cloud.google.com/load-balancer-type: "Internal"
   {{ end }}
 spec:
-  {{ if (.Values.autoIngress) and eq .Value.autoIngress true }} 
+  {{ if (.Values.autoIngress) and eq .Value.autoIngress true }}
   type: ClusterIP
   {{ else  }}
   type:  LoadBalancer
@@ -81,6 +81,15 @@ spec:
   ports:
     - port: 6379
       protocol: TCP
+
+  {{ if (.Values.redisInstanceName )}}
   selector:
     app: {{ template "divvycloud.name" . }}-redis
     release: {{ .Release.Name }}
+  {{ end }}
+
+  {{ if (eq .Values.externalRedis false )}}
+  selector:
+    app: {{ template "divvycloud.name" . }}-redis
+    release: {{ .Release.Name }}
+  {{ end }}
