@@ -82,13 +82,13 @@ spec:
     - port: 6379
       protocol: TCP
 
-  {{ if (.Values.redisInstanceName )}}
+  {{ if (.Values.redisHost )}}
   selector:
     app: {{ template "divvycloud.name" . }}-redis
     release: {{ .Release.Name }}
   {{ end }}
 
-  {{ if (eq .Values.externalRedis false )}}
+  {{ if (eq .Values.useExternalRedis false )}}
   selector:
     app: {{ template "divvycloud.name" . }}-redis
     release: {{ .Release.Name }}
