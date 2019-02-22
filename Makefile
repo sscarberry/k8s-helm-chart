@@ -2,12 +2,12 @@ APP_NAME ?= divvycloud
 NAMESPACE ?= divvycloud
 VALUES ?= values.yaml
 
-plugins:: plugins/uninstall plugins/install 
+plugins:: plugins/uninstall plugins/install
 
 
 .PHONY: crd/install
 crd/install:
-	kubectl create -f crd/app-crd.yaml --namespace ${NAMESPACE}  --validate=false
+	kubectl create namespace ${NAMESPACE} && kubectl create -f crd/app-crd.yaml --namespace ${NAMESPACE}  --validate=false
 
 .PHONY: app/install-notiller
 app/install-notiller:
@@ -17,7 +17,7 @@ app/install-notiller:
 
 .PHONY: app/install
 app/install:
-	helm install --name=$(APP_NAME) --namespace ${NAMESPACE} -f ${VALUES} divvycloud 
+	helm install --name=$(APP_NAME) --namespace ${NAMESPACE} -f ${VALUES} divvycloud
 
 .PHONY: app/uninstall-notille
 app/uninstall-notiller:
