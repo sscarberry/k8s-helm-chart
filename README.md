@@ -122,6 +122,22 @@ Information for creating a GCP Service Account that has access to GoogleCloudSQL
 
 *There is no need to perform step 5.2  (cloudsql-db-credentials) , as we will use variables below to set username and password.*
 
+## Using External Redis
+
+To use external Redis update the following settings in values.yaml:
+
+You will want to set the `useExternalRedis` value to true.
+
+```
+useExternalRedis: true
+```
+
+Then you will want to set the `redisHost` value. The redisHost address can be found by going to your Memorystore and finding the IP Address for the Memorystore insatance you would like to use.
+
+```
+redisHost: [Your_Memorystore_IpAddress_]
+```
+
 ## Using Plugins
 
 To use plugins, simply put your uncompressed plugin into the plugins/ directory. Once that is done , you can use the make command to zip and upload all the plugins to kubernetes.
