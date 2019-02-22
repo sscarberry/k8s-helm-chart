@@ -138,6 +138,11 @@ Then you will want to set the `redisHost` value. The redisHost address can be fo
 redisHost: [Your_Memorystore_IpAddress_]
 ```
 
+#### Troubleshooting
+If you find that your external redis instance is not communicating, but the `$REDIS_HOST` environmental variable is being set properly to your `redisHost` value; follow the following instructions:
+
+[Connecting to a Redis instance from a GKE](https://cloud.google.com/memorystore/docs/redis/connect-redis-instance-gke#preparing-cluster)
+
 ## Using Plugins
 
 To use plugins, simply put your uncompressed plugin into the plugins/ directory. Once that is done , you can use the make command to zip and upload all the plugins to kubernetes.
