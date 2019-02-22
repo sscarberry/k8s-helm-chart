@@ -2,7 +2,7 @@
 
 DivvyCloud enforces security, compliance, and governance policy in your cloud and container based infrastructure.
 
-Below you will find steps on how to deploy DivvyCloud to a Kubernetes cluster. 
+Below you will find steps on how to deploy DivvyCloud to a Kubernetes cluster.
 
 # Before you start
 
@@ -22,22 +22,22 @@ The below instructions assumes:
 ### Helm
 We have included some convience scripts for installing helm into a raw GKE cluster.  Please see the scripts directory.
 
-If your cluster already has helm installed, you  only need to install the helm cli on your computer. 
+If your cluster already has helm installed, you  only need to install the helm cli on your computer.
 
 For instructions please see the [Helm github](https://github.com/helm/helm)
 
 
 # Quick Start
 
-These commands require helm to be install locally. 
+These commands require helm to be install locally.
 ```
 make crd/install
-make app/install 
+make app/install
 ```
 
 
 
-# Configuration 
+# Configuration
 ## Configuration
 
 **We look for values.yaml in the same directory as the Makefile.**
@@ -68,14 +68,14 @@ The following table lists the configurable parameters of the Redis chart and the
 | `replicaCounts.schedulers`                         | Number of schedules | `2`                                      |
 
 
-# Make Commands 
+# Make Commands
 
 | Parameter                                  | Description                                                                                                    
 |--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
 | `make crd/install`                     | Install Application CRD REQUIRED |
 | `make app/install`                     | Install DivvyCloud using tiller |
-| `make app/install-notiller`                     | Install DivvyCloud using helm template and deploy with kubectl -f apply  | 
-| `make app/uninstall`                     | Uninstall DivvyCloud using tiller | 
+| `make app/install-notiller`                     | Install DivvyCloud using helm template and deploy with kubectl -f apply  |
+| `make app/uninstall`                     | Uninstall DivvyCloud using tiller |
 | `make app/uninstall-notiller`                     | Install DivvyCloud using helm template and kubectl  |
 | `make app/restart`                     | Restart the DivvyCloud suite |
 | `make plugins/install`                     | Upload plugins to kubectl. Place all plugins in ./plugins/ directory prior to running this command. Suite restart is required after deployment. enablePlugins must be true (see above configuration) |
@@ -86,22 +86,22 @@ The following table lists the configurable parameters of the Redis chart and the
 ### Using External Database
 
 The values.yaml file located in the divvycloud/ directory allows you to configure your deployment.
-By default this deployment will use a contanerized version of MySQL and Redis. This is good for kicking the tires, however is not recommended for production environments. 
-The containerized version of MySQL is an ephemeral version and *WILL LOOSE ALL DATA* if restarted. 
-  
+By default this deployment will use a contanerized version of MySQL and Redis. This is good for kicking the tires, however is not recommended for production environments.
+The containerized version of MySQL is an ephemeral version and *WILL LOOSE ALL DATA* if restarted.
+
 
 #### Setup DB
-DivvyCloud will look for and use two database schemas: 
+DivvyCloud will look for and use two database schemas:
 
 - divvy
 - divvykeys
 
-After these two schemas are created you will need to create and grant privileges to a MySQL user. 
+After these two schemas are created you will need to create and grant privileges to a MySQL user.
 For more information on this topic please see our [Docs](http://docs.divvycloud.com/latest/installation/legacy.html)
 
 ##### Google CloudSQL
 
-To use Google Cloud SQL, you will want to uncomment and update the following option in the values.yaml.
+To use Google Cloud SQL, you will want to update the following option in the values.yaml (Not the divvycloud/values.yaml).
 
 The CloudSQLInstanceName can be found on the database information page for the CloudSQL Instance you are using. Once you have the, update the values.yaml:
 
@@ -122,12 +122,12 @@ Information for creating a GCP Service Account that has access to GoogleCloudSQL
 
 *There is no need to perform step 5.2  (cloudsql-db-credentials) , as we will use variables below to set username and password.*
 
-## Using Plugins 
+## Using Plugins
 
 To use plugins, simply put your uncompressed plugin into the plugins/ directory. Once that is done , you can use the make command to zip and upload all the plugins to kubernetes.
 
 ```
-make plugins/install 
+make plugins/install
 ```
 
 Once this is done, you will need to add enablePlugins to your values.yaml
@@ -135,16 +135,16 @@ Once this is done, you will need to add enablePlugins to your values.yaml
 enablePlugins: true
 ```
 
-After updaing the values.yaml, simply run the make app/install command. If you have already deployed, the install command will simply update the containers in place - no need to delete and re-install. 
+After updaing the values.yaml, simply run the make app/install command. If you have already deployed, the install command will simply update the containers in place - no need to delete and re-install.
 
 
-# Installation 
+# Installation
 
 Once you have modified the values.yml (optional), you can install DivvyCloud by running two commands:
 
 ```
 make crd/install
-make app/install 
+make app/install
 ```
 
 ## Connecting to admin console
@@ -161,7 +161,7 @@ Next open http://localhost:8001/ in your web browser
 ## Backup / Restore of internal MySQL
 
 MySQL dump and the MySQL client are used to backlup and restore a DivvyCloud database.
-First you need to get the IP address of the mysql service in your k8s deployment 
+First you need to get the IP address of the mysql service in your k8s deployment
 
 ```
   MYSQL_IP=$(kubectl get \
@@ -189,4 +189,3 @@ To restore a database:
 mysql -u [MYSQL_USER] -p -h [MYSQL_IP] divvy < divvy.sql
 mysql -u [MYSQL_USER] -p -h [MYSQL_IP] divvykeys < divvykeys.sql
 ```
-
