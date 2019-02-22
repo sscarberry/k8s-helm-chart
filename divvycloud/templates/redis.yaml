@@ -3,9 +3,7 @@
 # is not using an external Redis Service
 
 ---
-{{ if .Values.externalRedis }}
-# do nothing.
-{{ else }}
+{{ if eq .Values.useExternalRedis false }}
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
